@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: notificationprocessor
+
+  r2dbc:
+    url: ${DB_URL:r2dbc:mysql://localhost:3306/assessment?sslMode=DISABLED}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:sql123}
+  data:
+    r2dbc:
+      repositories:
+        enabled: true
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BROKER_URL:localhost:9094}
+
+server:
+  port: 8080
+
+external:
+  user-metadata-api:
+    endpoint: ${USER_META_DATA_ENDPOINT:https://mockserver.free.beeceptor.com/api/users/}
+    timeout: ${API_TIMEOUT:10} # in-second
+    retry-attempts: ${RETRY_ATTEMPT:3}
+    retry-delay: ${RETRY_DELAY:5} # in-second
+
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG
+    io.r2dbc: DEBUG
+    dev.miku.r2dbc.mysql: DEBUG
